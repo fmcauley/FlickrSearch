@@ -41,13 +41,13 @@
                                 </constraints>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="2Eu-R8-55L">
                                     <size key="itemSize" width="300" height="300"/>
-                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="headerReferenceSize" width="50" height="90"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="FlickrCell" id="Ufn-Wl-LIB" customClass="RFMFlickrPhotoCell">
-                                        <rect key="frame" x="0.0" y="0.0" width="300" height="300"/>
+                                        <rect key="frame" x="0.0" y="90" width="300" height="300"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                             <rect key="frame" x="0.0" y="0.0" width="300" height="300"/>
@@ -62,9 +62,9 @@
                                         <constraints>
                                             <constraint firstItem="Ccd-3m-N5P" firstAttribute="leading" secondItem="Ufn-Wl-LIB" secondAttribute="leading" type="default" id="69K-pm-hqb"/>
                                             <constraint firstItem="Ccd-3m-N5P" firstAttribute="top" secondItem="Ufn-Wl-LIB" secondAttribute="top" type="default" id="Pb7-4k-F4C"/>
+                                            <constraint firstItem="Hns-fs-8x0" firstAttribute="top" secondItem="Ufn-Wl-LIB" secondAttribute="top" constant="-1" id="cHj-9e-aOA"/>
                                             <constraint firstItem="Hns-fs-8x0" firstAttribute="centerX" secondItem="Ccd-3m-N5P" secondAttribute="centerX" type="default" id="fn6-OK-eyl"/>
                                             <constraint firstItem="Ccd-3m-N5P" firstAttribute="bottom" secondItem="Ufn-Wl-LIB" secondAttribute="bottom" type="default" id="hbW-BI-MgN"/>
-                                            <constraint firstItem="Hns-fs-8x0" firstAttribute="top" secondItem="Ufn-Wl-LIB" secondAttribute="top" type="default" id="wZs-qm-L08"/>
                                             <constraint firstItem="Ccd-3m-N5P" firstAttribute="trailing" secondItem="Ufn-Wl-LIB" secondAttribute="trailing" type="default" id="zg4-iq-lJf"/>
                                         </constraints>
                                         <connections>
@@ -72,6 +72,35 @@
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
+                                <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="FlickrPhotoHeaderView" id="UeN-8T-vsb" customClass="RFMFlickrPhotoHeaderView">
+                                    <rect key="frame" x="0.0" y="0.0" width="728" height="90"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bc8-WJ-stg">
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="366" id="vFP-tp-FZn"/>
+                                            </constraints>
+                                        </imageView>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XMm-rv-LD9">
+                                            <fontDescription key="fontDescription" type="system" pointSize="32"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="bc8-WJ-stg" firstAttribute="bottom" secondItem="UeN-8T-vsb" secondAttribute="bottom" type="default" id="RfJ-11-sSz"/>
+                                        <constraint firstItem="XMm-rv-LD9" firstAttribute="centerX" secondItem="UeN-8T-vsb" secondAttribute="centerX" type="default" id="Yq0-Dh-mQL"/>
+                                        <constraint firstItem="XMm-rv-LD9" firstAttribute="top" secondItem="UeN-8T-vsb" secondAttribute="top" type="default" id="c7j-vM-QCf"/>
+                                        <constraint firstItem="bc8-WJ-stg" firstAttribute="top" secondItem="UeN-8T-vsb" secondAttribute="top" type="default" id="ep0-hw-tU3"/>
+                                        <constraint firstItem="XMm-rv-LD9" firstAttribute="trailing" secondItem="bc8-WJ-stg" secondAttribute="trailing" type="default" id="fEC-vl-Kmk"/>
+                                        <constraint firstItem="bc8-WJ-stg" firstAttribute="leading" secondItem="XMm-rv-LD9" secondAttribute="leading" type="default" id="mAn-Up-cIS"/>
+                                        <constraint firstItem="XMm-rv-LD9" firstAttribute="bottom" secondItem="UeN-8T-vsb" secondAttribute="bottom" type="default" id="pQb-q9-K8F"/>
+                                    </constraints>
+                                    <connections>
+                                        <outlet property="backgroundImageView" destination="bc8-WJ-stg" id="6CV-a9-OVC"/>
+                                        <outlet property="searchLabel" destination="XMm-rv-LD9" id="ATZ-SH-aM3"/>
+                                    </connections>
+                                </collectionReusableView>
                                 <connections>
                                     <outlet property="dataSource" destination="2" id="pCD-wP-mqm"/>
                                     <outlet property="delegate" destination="2" id="pXg-8R-FkA"/>
@@ -118,6 +147,13 @@
             <source key="sourceIdentifier" type="project" relativePath="./Classes/RFMFlickrPhotoCell.h"/>
             <relationships>
                 <relationship kind="outlet" name="imageView" candidateClass="UIImageView"/>
+            </relationships>
+        </class>
+        <class className="RFMFlickrPhotoHeaderView" superclassName="UICollectionReusableView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/RFMFlickrPhotoHeaderView.h"/>
+            <relationships>
+                <relationship kind="outlet" name="backgroundImageView" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="searchLabel" candidateClass="UILabel"/>
             </relationships>
         </class>
         <class className="RFMViewController" superclassName="UIViewController">

@@ -10,8 +10,10 @@
 #import "Flickr.h"
 #import "FlickrPhoto.h"
 #import "RFMFlickrPhotoCell.h"
+#import "RFMFlickrPhotoHeaderView.h"
 
 #define kCellName @"FlickrCell"
+#define kCellHeader @"FlickrPhotoHeaderView"
 
 @interface RFMViewController () <UITextFieldDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
 @property (weak, nonatomic) IBOutlet UIToolbar *toolBar;
@@ -117,12 +119,15 @@
     return cell;
 }
 
-//-(UICollectionReusableView*)collectionView:(UICollectionView *)collectionView
-//         viewForSupplementaryElementOfKind:(NSString *)kind
-//                               atIndexPath:(NSIndexPath *)indexPath
-//{
-//    return [[UICollectionReusableView alloc]init];
-//}
+-(UICollectionReusableView*)collectionView:(UICollectionView *)collectionView
+         viewForSupplementaryElementOfKind:(NSString *)kind
+                               atIndexPath:(NSIndexPath *)indexPath
+{
+    RFMFlickrPhotoHeaderView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:kCellHeader forIndexPath:indexPath];
+    NSString* searchTerm = self.searches[indexPath.section];
+    [headerView setSearchText:searchTerm];
+    return headerView;
+}
 
 #pragma mark - UICollectionViewDelegate
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
