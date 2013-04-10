@@ -7,11 +7,18 @@
 //
 
 #import "RFMViewController.h"
+#import "Flickr.h"
+#import "FlickrPhoto.h"
 
 @interface RFMViewController ()
 @property (weak, nonatomic) IBOutlet UIToolbar *toolBar;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *shareButton;
 @property (weak, nonatomic) IBOutlet UITextField *textField;
+
+@property(nonatomic, strong) NSMutableDictionary* searchResults;
+@property(nonatomic, strong) NSMutableArray* searches;
+@property(nonatomic, strong) Flickr* flickr;
+
 - (IBAction)shareButtonTapped:(UIBarButtonItem *)sender;
 
 @end
