@@ -9,6 +9,10 @@
 #import "RFMViewController.h"
 
 @interface RFMViewController ()
+@property (weak, nonatomic) IBOutlet UIToolbar *toolBar;
+@property (weak, nonatomic) IBOutlet UIToolbar *shareButton;
+@property (weak, nonatomic) IBOutlet UITextField *textField;
+- (IBAction)shareButtonTapped:(UIBarButtonItem *)sender;
 
 @end
 
@@ -26,4 +30,6 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (IBAction)shareButtonTapped:(UIBarButtonItem *)sender {
+}
 @end
