@@ -10,7 +10,7 @@
 #import "Flickr.h"
 #import "FlickrPhoto.h"
 
-@interface RFMViewController ()
+@interface RFMViewController () <UITextFieldDelegate>
 @property (weak, nonatomic) IBOutlet UIToolbar *toolBar;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *shareButton;
 @property (weak, nonatomic) IBOutlet UITextField *textField;
@@ -43,11 +43,20 @@
     [self.textField setBackground:textFieldImage];
 }
 
+- (void)dataStructureSetup
+{
+    self.searches = [@[] mutableCopy];
+    self.searchResults = [@{} mutableCopy];
+    self.flickr = [[Flickr alloc]init];
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
 	
     [self setBackgroundImages];
+    
+    [self dataStructureSetup];
     
     
 }
@@ -59,5 +68,34 @@
 }
 
 - (IBAction)shareButtonTapped:(UIBarButtonItem *)sender {
+}
+
+- (void)searchFlicketWithText:(UITextField *)textField {
+    [self.flickr searchFlickrForTerm:textField.text completionBlock:^(NSString *searchTerm, NSArray *results, NSError *error) {
+        if (results && [results count] > 0) {
+            if (![self.searches containsObject:searchTerm]) {
+                NSLog(@"Found %d photos matching %@", [results count], searchTerm);
+                [self.searches insertObject:searchTerm atIndex:0];
+                self.searchResults[searchTerm] = results;
+            }
+            
+            //get the images
+            dispatch_async(dispatch_get_main_queue(), ^{
+                //place holder for the logic that will fetch the images
+            });
+        } else {
+            NSLog(@"Error searching Flickr: %@", error.localizedDescription);
+        }
+    }];
+}
+
+
+#pragma mark - UITextFieldDelegate methods
+
+-(BOOL) textFieldShouldReturn:(UITextField *)textField {
+    [self searchFlicketWithText:textField];
+    
+    [textField resignFirstResponder];
+    return YES;
 }
 @end
