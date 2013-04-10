@@ -9,6 +9,7 @@
 #import "RFMViewController.h"
 #import "Flickr.h"
 #import "FlickrPhoto.h"
+#import "RFMFlickrPhotoCell.h"
 
 #define kCellName @"FlickrCell"
 
@@ -57,14 +58,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	
     [self setBackgroundImages];
-    
     [self dataStructureSetup];
-    
-    [self.collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:kCellName];
-    
-    
 }
 
 - (void)didReceiveMemoryWarning
@@ -116,8 +111,9 @@
 }
 
 -(UICollectionViewCell*)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:kCellName forIndexPath:indexPath];
-    cell.backgroundColor = [UIColor whiteColor];
+    RFMFlickrPhotoCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:kCellName forIndexPath:indexPath];
+    NSString* searchTerm = self.searches[indexPath.section];
+    cell.photo = self.searchResults[searchTerm][indexPath.row];
     return cell;
 }
 

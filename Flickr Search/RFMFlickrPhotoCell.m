@@ -7,6 +7,8 @@
 //
 
 #import "RFMFlickrPhotoCell.h"
+#import "FlickrPhoto.h"
+#import <QuartzCore/QuartzCore.h>
 
 @implementation RFMFlickrPhotoCell
 
@@ -17,6 +19,13 @@
         // Initialization code
     }
     return self;
+}
+
+-(void)setPhoto:(FlickrPhoto *)photo{
+    if (_photo != photo) {
+        _photo = photo;
+    }
+    self.imageView.image = _photo.thumbnail;
 }
 
 /*

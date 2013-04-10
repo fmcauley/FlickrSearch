@@ -8,6 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
+@class FlickrPhoto;
+
 @interface RFMFlickrPhotoCell : UICollectionViewCell
+
+@property(nonatomic, strong) IBOutlet UIImageView*  imageView;
+@property(nonatomic, strong) FlickrPhoto* photo;
 
 @end
