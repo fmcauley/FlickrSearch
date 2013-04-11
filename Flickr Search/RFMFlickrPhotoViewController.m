@@ -38,6 +38,7 @@
     if (self.flickrPhoto.largeImage) {
         self.imageView.image = self.flickrPhoto.largeImage;
     }else{
+        
         self.imageView.image = self.flickrPhoto.thumbnail;
         [Flickr loadImageForPhoto:self.flickrPhoto thumbnail:NO completionBlock:^(UIImage *photoImage, NSError *error) {
             if (!error) {

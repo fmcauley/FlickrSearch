@@ -12,11 +12,12 @@
 #import "RFMFlickrPhotoCell.h"
 #import "RFMFlickrPhotoHeaderView.h"
 #import "RFMFlickrPhotoViewController.h"
+#import <MessageUI/MessageUI.h>
 
 #define kCellName @"FlickrCell"
 #define kCellHeader @"FlickrPhotoHeaderView"
 
-@interface RFMViewController () <UITextFieldDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
+@interface RFMViewController () <UITextFieldDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, MFMailComposeViewControllerDelegate>
 @property (weak, nonatomic) IBOutlet UIToolbar *toolBar;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *shareButton;
 @property (weak, nonatomic) IBOutlet UITextField *textField;
@@ -28,6 +29,8 @@
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 
 @property(nonatomic) BOOL sharing;
+
+@property(nonatomic, strong) NSMutableArray* selectedPhotos;
 
 - (IBAction)shareButtonTapped:(UIBarButtonItem *)sender;
 
@@ -58,6 +61,7 @@
     self.searches = [@[] mutableCopy];
     self.searchResults = [@{} mutableCopy];
     self.flickr = [[Flickr alloc]init];
+    self.selectedPhotos = [@[]mutableCopy];
 }
 
 - (void)viewDidLoad
@@ -74,6 +78,26 @@
 }
 
 - (IBAction)shareButtonTapped:(UIBarButtonItem *)sender {
+    if (!self.sharing) {
+        self.sharing = YES;
+        [sender setStyle:UIBarButtonItemStyleDone];
+        [sender setTitle:@"Done"];
+        [self.collectionView setAllowsMultipleSelection:YES];
+    } else {
+        self.sharing = NO;
+        [sender setStyle:UIBarButtonItemStyleBordered];
+        [sender setTitle:@"Share"];
+        [self.collectionView setAllowsMultipleSelection:NO];
+        
+        if ([self.selectedPhotos count] > 0) {
+            [self showMailComposerAndSend];
+        }
+        
+        for(NSIndexPath *indexPath in self.collectionView.indexPathsForSelectedItems){
+            [self.collectionView deselectItemAtIndexPath:indexPath animated:NO];
+        }
+    [self.selectedPhotos removeAllObjects];
+    }
 }
 
 - (void)searchFlicketWithText:(UITextField *)textField {
@@ -140,13 +164,19 @@
         [self performSegueWithIdentifier:@"ShowFlickrPhoto" sender:photo];
         [self.collectionView deselectItemAtIndexPath:indexPath animated:YES];
     } else {
-        // TODO: Multi-Select
+        NSString* searchTerm = self.searches[indexPath.section];
+        FlickrPhoto* photo = self.searchResults[searchTerm][indexPath.row];
+        [self.selectedPhotos addObject:photo];
     }
     
 }
 
 -(void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath{
-    
+    if (self.sharing) {
+        NSString* searchTerm = self.searches[indexPath.section];
+        FlickrPhoto* photo = self.searchResults[searchTerm][indexPath.row];
+        [self.selectedPhotos removeObject:photo];
+    }
 }
 
 #pragma mark - UICollectionViewDelegateFlowLayout
@@ -168,6 +198,32 @@
 -(UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
 {
     return UIEdgeInsetsMake(50, 20, 50, 20);
+}
+
+#pragma mark - MFMailComposeViewControllerDelegate
+-(void)showMailComposerAndSend{
+    if ([MFMailComposeViewController canSendMail]) {
+        MFMailComposeViewController* mailer = [[MFMailComposeViewController alloc]init];
+        mailer.mailComposeDelegate = self;
+        [mailer setSubject:@"Check out these Flickr Photos"];
+        
+        NSMutableString* emailBody = [NSMutableString string];
+        for(FlickrPhoto* flickrPhoto in self.selectedPhotos){
+            NSString* url = [Flickr flickrPhotoURLForFlickrPhoto:flickrPhoto size:@"m"];
+            [emailBody appendFormat:@"<div><img src='%@'></div><br>", url];
+        }
+        
+        [mailer setMessageBody:emailBody isHTML:YES];
+        
+        [self presentViewController:mailer animated:YES completion:^{}];
+    } else {
+        UIAlertView* alert = [[UIAlertView alloc]initWithTitle:@"Mail Failure" message:@"Your device doesn't support in-app email" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [alert show];
+    }
+}
+
+-(void)mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error{
+    [controller dismissViewControllerAnimated:YES completion:^{}];
 }
 
 #pragma mark - perpareForSegue

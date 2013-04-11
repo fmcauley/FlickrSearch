@@ -53,19 +53,22 @@
                                             <rect key="frame" x="0.0" y="0.0" width="300" height="300"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="Ccd-3m-N5P"/>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="Ccd-3m-N5P">
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="273" id="4wb-o8-PcM"/>
+                                                    </constraints>
+                                                </imageView>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="pushpin.png" translatesAutoresizingMaskIntoConstraints="NO" id="Hns-fs-8x0"/>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                         <constraints>
-                                            <constraint firstItem="Ccd-3m-N5P" firstAttribute="leading" secondItem="Ufn-Wl-LIB" secondAttribute="leading" type="default" id="69K-pm-hqb"/>
-                                            <constraint firstItem="Ccd-3m-N5P" firstAttribute="top" secondItem="Ufn-Wl-LIB" secondAttribute="top" type="default" id="Pb7-4k-F4C"/>
+                                            <constraint firstItem="Hns-fs-8x0" firstAttribute="centerX" secondItem="Ccd-3m-N5P" secondAttribute="centerX" type="default" id="0PF-ea-e4d"/>
+                                            <constraint firstItem="Ccd-3m-N5P" firstAttribute="top" secondItem="Ufn-Wl-LIB" secondAttribute="top" constant="20" type="default" id="CK1-mW-uah"/>
+                                            <constraint firstItem="Ccd-3m-N5P" firstAttribute="centerX" secondItem="Ufn-Wl-LIB" secondAttribute="centerX" type="default" id="bvX-Tq-Ut8"/>
                                             <constraint firstItem="Hns-fs-8x0" firstAttribute="top" secondItem="Ufn-Wl-LIB" secondAttribute="top" constant="-1" id="cHj-9e-aOA"/>
-                                            <constraint firstItem="Hns-fs-8x0" firstAttribute="centerX" secondItem="Ccd-3m-N5P" secondAttribute="centerX" type="default" id="fn6-OK-eyl"/>
-                                            <constraint firstItem="Ccd-3m-N5P" firstAttribute="bottom" secondItem="Ufn-Wl-LIB" secondAttribute="bottom" type="default" id="hbW-BI-MgN"/>
-                                            <constraint firstItem="Ccd-3m-N5P" firstAttribute="trailing" secondItem="Ufn-Wl-LIB" secondAttribute="trailing" type="default" id="zg4-iq-lJf"/>
+                                            <constraint firstItem="Ccd-3m-N5P" firstAttribute="bottom" secondItem="Ufn-Wl-LIB" secondAttribute="bottom" type="default" id="lou-Ee-jeI"/>
                                         </constraints>
                                         <connections>
                                             <outlet property="imageView" destination="Ccd-3m-N5P" id="x30-mE-zQ3"/>
@@ -156,13 +159,13 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="D2m-sL-eB3" firstAttribute="leading" secondItem="QB6-Oi-0Sy" secondAttribute="leading" type="default" id="2Dv-Xc-8gQ"/>
+                            <constraint firstItem="D2m-sL-eB3" firstAttribute="top" secondItem="Pwu-0t-3dF" secondAttribute="bottom" type="default" id="1Ea-UA-Hzr"/>
                             <constraint firstItem="Pwu-0t-3dF" firstAttribute="top" secondItem="QB6-Oi-0Sy" secondAttribute="top" type="default" id="4Pp-Of-w8f"/>
-                            <constraint firstItem="D2m-sL-eB3" firstAttribute="top" secondItem="Pwu-0t-3dF" secondAttribute="bottom" type="default" id="BhV-vM-Bz8"/>
-                            <constraint firstItem="D2m-sL-eB3" firstAttribute="trailing" secondItem="QB6-Oi-0Sy" secondAttribute="trailing" type="default" id="hQi-43-5Rd"/>
+                            <constraint firstItem="D2m-sL-eB3" firstAttribute="trailing" secondItem="QB6-Oi-0Sy" secondAttribute="trailing" type="default" id="SOg-Ty-tnr"/>
+                            <constraint firstItem="D2m-sL-eB3" firstAttribute="leading" secondItem="QB6-Oi-0Sy" secondAttribute="leading" type="default" id="flf-fT-5of"/>
+                            <constraint firstItem="D2m-sL-eB3" firstAttribute="bottom" secondItem="QB6-Oi-0Sy" secondAttribute="bottom" type="default" id="jGX-Ss-JcM"/>
                             <constraint firstItem="Pwu-0t-3dF" firstAttribute="leading" secondItem="QB6-Oi-0Sy" secondAttribute="leading" type="default" id="uBM-Fu-HMj"/>
                             <constraint firstItem="Pwu-0t-3dF" firstAttribute="trailing" secondItem="QB6-Oi-0Sy" secondAttribute="trailing" type="default" id="xY8-JE-Wij"/>
-                            <constraint firstItem="D2m-sL-eB3" firstAttribute="bottom" secondItem="QB6-Oi-0Sy" secondAttribute="bottom" type="default" id="xyD-5P-83h"/>
                         </constraints>
                     </view>
                     <connections>
@@ -179,6 +182,53 @@
         <image name="pushpin.png" width="22" height="31"/>
         <image name="search_text.png" width="97" height="25"/>
     </resources>
+    <classes>
+        <class className="NSLayoutConstraint" superclassName="NSObject">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/NSLayoutConstraint.h"/>
+        </class>
+        <class className="RFMFlickrPhotoCell" superclassName="UICollectionViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/RFMFlickrPhotoCell.h"/>
+            <relationships>
+                <relationship kind="outlet" name="imageView" candidateClass="UIImageView"/>
+            </relationships>
+        </class>
+        <class className="RFMFlickrPhotoHeaderView" superclassName="UICollectionReusableView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/RFMFlickrPhotoHeaderView.h"/>
+            <relationships>
+                <relationship kind="outlet" name="backgroundImageView" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="searchLabel" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="RFMFlickrPhotoViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/RFMFlickrPhotoViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="done:" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="imageView" candidateClass="UIImageView"/>
+            </relationships>
+        </class>
+        <class className="RFMViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/RFMViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="shareButtonTapped:" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="collectionView" candidateClass="UICollectionView"/>
+                <relationship kind="outlet" name="shareButton" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="textField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="toolBar" candidateClass="UIToolbar"/>
+            </relationships>
+        </class>
+        <class className="UICollectionReusableView" superclassName="UIView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/UICollectionReusableView.h"/>
+        </class>
+        <class className="UICollectionViewCell" superclassName="UICollectionReusableView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/UICollectionViewCell.h"/>
+        </class>
+        <class className="UICollectionViewFlowLayout" superclassName="UICollectionViewLayout">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/UICollectionViewFlowLayout.h"/>
+        </class>
+        <class className="UICollectionViewLayout" superclassName="NSObject">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/UICollectionViewLayout.h"/>
+        </class>
+    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar" statusBarStyle="blackTranslucent"/>
         <simulatedOrientationMetrics key="orientation"/>

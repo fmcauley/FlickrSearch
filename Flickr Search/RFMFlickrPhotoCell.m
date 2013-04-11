@@ -12,15 +12,17 @@
 
 @implementation RFMFlickrPhotoCell
 
-- (id)initWithFrame:(CGRect)frame
-{
-    self = [super initWithFrame:frame];
+-(id)initWithCoder:(NSCoder *)aDecoder{
+    self = [super initWithCoder:aDecoder];
     if (self) {
-        // Initialization code
+        UIView* bgView = [[UIView alloc]initWithFrame:self.backgroundView.frame];
+        bgView.backgroundColor = [UIColor blueColor];
+        bgView.layer.borderColor = [[UIColor whiteColor]CGColor];
+        bgView.layer.borderWidth = 4;
+        self.selectedBackgroundView = bgView;
     }
     return self;
 }
-
 -(void)setPhoto:(FlickrPhoto *)photo{
     if (_photo != photo) {
         _photo = photo;
